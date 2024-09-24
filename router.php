@@ -1,5 +1,5 @@
 <?php
-require_once './app/task.php';
+require_once 'app/controllers/task.controller.php';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
@@ -9,23 +9,35 @@ if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
 
+// tabla de ruteo
+
+// listar  -> TaskController->showTask();
+// nueva  -> TaskController->addTask();
+// eliminar/ID  -> TaskController->deleteTask();
+// finalizar/ID -> TaskController->finishTask();
+// ver/ID -> TaskController->view($id);
+
 // parsea la accion para separar accion real de parametros
 $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'listar':
-        showTasks();
+        $controller = new TaskController();
+        $controller->showTasks();
         break;
     case 'nueva':
-        addTask();
+        $controller = new TaskController();
+        $controller->addTask();
         break;
     case 'eliminar':
-        deleteTask($params[1]);
+        $controller = new TaskController();
+        $controller->deleteTask($params[1]);
         break;
     case 'finalizar':
-        finishTask($params[1]);
-        break; 
+        $controller = new TaskController();
+        $controller->finishTask($params[1]);
+        break;
     default: 
-        echo "404 Page Not Found";
+        echo "404 Page Not Found"; // está mal
         break;
 }
