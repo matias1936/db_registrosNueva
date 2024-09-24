@@ -16,7 +16,7 @@ class TaskController {
         $tasks = $this->model->getTasks();
 
         // mando las tareas a la vista
-        $this->view->showTasks($tasks);
+        return $this->view->showTasks($tasks);
     }
 
     public function addTask() {
@@ -34,7 +34,7 @@ class TaskController {
     
         $id = $this->model->insertTask($title, $description, $priority);
     
-        // redirijo al home
+        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
         header('Location: ' . BASE_URL);
     }
 
