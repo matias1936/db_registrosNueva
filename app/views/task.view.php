@@ -1,6 +1,12 @@
 <?php
 
 class TaskView {
+    private $user = null;
+
+    public function __construct($user) {
+        $this->user = $user;
+    }
+
     public function showTasks($tasks) {
         // la vista define una nueva variable con la cantida de tareas
         $count = count($tasks);

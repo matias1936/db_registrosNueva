@@ -6,7 +6,7 @@
 <?php foreach($tasks as $task): ?>
     <li class="list-group-item item-task <?php if($task->finalizada): ?> finished <?php endif ?>">
         <div class="label">
-            <b><?= $task->titulo ?></b> | <?=substr($task->descripcion,0,25)?> | (Prioridad <?= $task->prioridad ?>)
+            <b><?= htmlspecialchars($task->titulo) ?></b> | <?=substr($task->descripcion,0,25)?> | (Prioridad <?= $task->prioridad ?>)
         </div>
         <div class="actions">
             <?php if(!$task->finalizada): ?> 

@@ -6,9 +6,9 @@ class TaskController {
     private $model;
     private $view;
 
-    public function __construct() {
+    public function __construct($res) {
         $this->model = new TaskModel();
-        $this->view = new TaskView();
+        $this->view = new TaskView($res->user);
     }
 
     public function showTasks() {
