@@ -1,6 +1,7 @@
 <?php
 require_once 'libs/response.php';
 require_once 'app/middlewares/session.auth.middleware.php';
+require_once 'app/middlewares/verify.auth.middleware.php';
 require_once 'app/controllers/task.controller.php';
 require_once 'app/controllers/auth.controller.php';
 
@@ -27,22 +28,25 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'listar':
-        sessionAuthMiddleware($res); // Verifica que el usuario esté logueado y setea $res->user o redirige a login
+        sessionAuthMiddleware($res);
         $controller = new TaskController($res);
         $controller->showTasks();
         break;
     case 'nueva':
-        sessionAuthMiddleware($res);
+        sessionAuthMiddleware($res); // Setea $res->user si existe session
+        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new TaskController($res);
         $controller->addTask();
         break;
     case 'eliminar':
         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new TaskController($res);
         $controller->deleteTask($params[1]);
         break;
     case 'finalizar':
         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new TaskController($res);
         $controller->finishTask($params[1]);
         break;
