@@ -1,4 +1,4 @@
-<?php require 'templates/layout/header.phtml' ?>
+<?php require 'templates/header.tpl'?>
 
 <?php if ($error): ?>
     <div class='alert alert-danger' role='alert'>
@@ -18,4 +18,4 @@
     <button type='submit' class='btn btn-primary'>Login</button>
 </form>
 
-<?php require 'templates/layout/footer.phtml' ?>
+<?php require 'templates/footer.tpl' ?>
