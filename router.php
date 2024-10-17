@@ -4,6 +4,7 @@ require_once 'app/middlewares/session.auth.middleware.php';
 require_once 'app/middlewares/verify.auth.middleware.php';
 require_once 'app/controllers/registro.controller.php';
 require_once 'app/controllers/auth.controller.php';
+require_once 'app/controllers/establecimientos.controller.php';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
@@ -30,8 +31,12 @@ switch ($params[0]) {
     case 'listar':
         sessionAuthMiddleware($res);//
         //verifica si existe una sesión activa con un usuario autenticado 
-        $controller = new RegistroController($res);
+        $controller = new EstablecimientoController($res);
         $controller->showRegistros();
+        break;
+    case 'listar_establecimientos': 
+        $controller = new EstablecimientoController($res);
+        $controller->showEstablecimientos(); 
         break;
     case 'nueva':
         sessionAuthMiddleware($res); // Setea $res->user si existe session

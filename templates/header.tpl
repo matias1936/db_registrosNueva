@@ -27,7 +27,7 @@
                             <a class="nav-link text-white" aria-current="page" href="">Registros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" aria-current="page" href="">Establecimientos</a>
+                            <a class="nav-link text-white" aria-current="page" href="?action=listar_establecimientos">Establecimientos</a>
                         </li>
                         <?php if($this->user): ?>
                             <li class="nav-item">
