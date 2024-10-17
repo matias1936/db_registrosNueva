@@ -45,4 +45,17 @@ class RegistroModel {
         $query = $this->db->prepare('UPDATE registros SET finalizada = 1 WHERE id = ?');
         $query->execute([$id]);
     }
+    public function getRegistrosByEstablecimiento($establecimiento) {
+        $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento = ?');
+        $query->execute([$establecimiento]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function getEstablecimientos() {
+        $query = $this->db->prepare('SELECT * FROM establecimientos');
+        $query->execute();
+        
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+    
+    
 }
