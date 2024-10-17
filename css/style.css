@@ -8,3 +8,27 @@ li.finished .label {
     opacity: .4;
     text-decoration: line-through;
 }
+.item-registro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+.btn {
+    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+}
+
+.btn:hover {
+    filter: brightness(90%); /* Efecto de oscurecimiento al pasar el mouse */
+}
+
+.finished {
+    background-color: #d4edda; /* Color de fondo para registros finalizados */
+    color: #155724; /* Color de texto para registros finalizados */
+    text-decoration: line-through; /* Tachar el texto */
+}
