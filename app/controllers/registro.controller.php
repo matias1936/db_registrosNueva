@@ -14,9 +14,10 @@ class RegistroController {
     public function showRegistros() {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
+        $establecimientos=$this->model->getEstablecimientos();
 
         // mando las registros a la vista
-        return $this->view->showRegistros($Registros);
+        return $this->view->showRegistros($Registros,$establecimientos);
     }
 
     public function addRegistro() {
@@ -64,6 +65,15 @@ class RegistroController {
         $this->model->updateRegistro($id);
 
         header('Location: ' . BASE_URL);
+    }
+    public function buscar() {
+        $establecimiento = $_GET['establecimiento'] ?? null;
+        
+        // Llama al modelo para obtener los registros filtrados
+        $registros = $this->registroModel->getRegistrosByEstablecimiento($establecimiento);
+        
+        // Muestra la vista con los registros filtrados
+        $this->registroView->showRegistros($registros);
     }
 }
 
