@@ -1,24 +1,35 @@
 <?php
 
+require_once './libs/Smarty.class.php';
+use Smarty\Smarty;
+
 class RegistroView {
     private $user = null;
+    private $smarty;
 
     public function __construct($user) {
         $this->user = $user;
+        $this->smarty = new Smarty();
+
+        // Configura las rutas de Smarty
+        $this->smarty->setTemplateDir('templates/');
+        $this->smarty->setCompileDir('templates_c/'); // Asegúrate de tener este directorio con permisos de escritura.
     }
 
-    public function showRegistros($registros,$establecimientos) {
-        // la vista define una nueva variable con la cantida de registros
-        $count = count($registros);
+    public function showRegistros($registros, $establecimientos) {
+        // Asigna las variables a Smarty
+        $this->smarty->assign('user', $this->user);
+        $this->smarty->assign('registros', $registros);
+        $this->smarty->assign('establecimientos', $establecimientos);
+        $this->smarty->assign('count', count($registros));
 
-        // NOTA: el template va a poder acceder a todas las variables y constantes que tienen alcance en esta funcion
-
-        require 'templates/lista_registros.phtml';
-
+        // Renderiza la plantilla `lista_registros.tpl`
+        $this->smarty->display('lista_registros.tpl');
     }
 
     public function showError($error) {
-        require 'templates/error.phtml';
+        // Asigna el error a Smarty y muestra la plantilla `error.tpl`
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('error.tpl');
     }
-
 }
