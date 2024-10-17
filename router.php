@@ -6,6 +6,7 @@ require_once 'app/controllers/registro.controller.php';
 require_once 'app/controllers/auth.controller.php';
 require_once 'app/controllers/establecimientos.controller.php';
 
+
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
