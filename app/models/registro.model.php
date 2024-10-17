@@ -7,16 +7,16 @@ class RegistroModel {
        $this->db = new PDO('mysql:host=localhost;dbname=db_registros;charset=utf8', 'root', '');
     }
  
-    public function getRegistros() {
-        // 2. Ejecuto la consulta
-        $query = $this->db->prepare('SELECT * FROM registros');
-        $query->execute();
+   public function getRegistros() {
+    $query = $this->db->prepare(
+        'SELECT r.*, e.nombre AS establecimiento_nombre
+         FROM registros r
+         LEFT JOIN establecimientos e ON r.establecimiento_id = e.id'
+    );
+    $query->execute();
     
-        // 3. Obtengo los datos en un arreglo de objetos
-        $registros = $query->fetchAll(PDO::FETCH_OBJ); 
-    
-        return $registros;
-    }
+    return $query->fetchAll(PDO::FETCH_OBJ);
+}
  
     public function getRegistro($id) {    
         $query = $this->db->prepare('SELECT * FROM registros WHERE id = ?');
@@ -46,9 +46,14 @@ class RegistroModel {
         $query->execute([$id]);
     }
     public function getRegistrosByEstablecimiento($establecimiento) {
-        $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento_id = ?');
+        $query = $this->db->prepare(
+            'SELECT r.*, e.nombre AS establecimiento_nombre
+             FROM registros r
+             JOIN establecimientos e ON r.establecimiento_id = e.id
+             WHERE r.establecimiento_id = ?'
+        );
         $query->execute([$establecimiento]);
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        return $query->fetchAll(PDO::FETCH_OBJ);;
     }
     public function getEstablecimientos() {
         $query = $this->db->prepare('SELECT * FROM establecimientos');

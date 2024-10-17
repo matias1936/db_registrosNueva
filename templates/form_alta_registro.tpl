@@ -37,16 +37,17 @@
     </div>
 
     <div class="form-group">
-        <label for="establecimiento">Establecimiento</label>
-        <select required name="establecimiento" class="form-control" id="establecimiento">
-            <option value="" disabled selected>Selecciona un establecimiento</option>
-            <!-- Ejemplo de opciones, reemplazar con PHP para generar dinámicamente -->
-            <option value="1">Establecimiento 1</option>
-            <option value="2">Establecimiento 2</option>
-            <option value="3">Establecimiento 3</option>
-            <!-- Puedes agregar más opciones según sea necesario -->
-        </select>
-    </div>
+    <label for="establecimiento">Establecimiento</label>
+    <select required name="establecimiento_id" class="form-control" id="establecimiento">
+        <option value="" disabled selected>Selecciona un establecimiento</option>
+        <?php foreach ($establecimientos as $establecimiento): ?>
+            <option value="<?= htmlspecialchars($establecimiento->id) ?>">
+                <?= htmlspecialchars($establecimiento->nombre) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
 
     <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 </form>

@@ -28,9 +28,11 @@
         <?php foreach($registros as $registro): ?>
             <li class="list-group-item item-registro <?php if($registro->finalizada): ?> finished <?php endif ?>">
                 <div class="label">
-                    <b>| Nombre: <?= htmlspecialchars($registro->nombre) ?></b> |
+                    <b> <?= htmlspecialchars($registro->nombre) ?></b> |
                     Accion: <?= substr($registro->action, 0, 25) ?> |
-                    (Fecha: <?= $registro->fecha ?>)
+                    Fecha: <?= $registro->fecha ?>
+                    Hora: <?= $registro->hora ?>
+                    Establecimiento: <?= htmlspecialchars($registro->establecimiento_nombre) ?>
                 </div>
                 <div class="actions">
                         <a href="modificar/<?= $registro->id ?>" type="button" class="btn btn-primary btn-sm me-2">Modificar</a>
