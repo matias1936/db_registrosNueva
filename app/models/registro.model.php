@@ -46,7 +46,7 @@ class RegistroModel {
         $query->execute([$id]);
     }
     public function getRegistrosByEstablecimiento($establecimiento) {
-        $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento = ?');
+        $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento_id = ?');
         $query->execute([$establecimiento]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

@@ -7,7 +7,7 @@ class RegistroView {
         $this->user = $user;
     }
 
-    public function showRegistros($registros) {
+    public function showRegistros($registros,$establecimientos) {
         // la vista define una nueva variable con la cantida de registros
         $count = count($registros);
 

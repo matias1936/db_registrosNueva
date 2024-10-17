@@ -70,10 +70,28 @@ class RegistroController {
         $establecimiento = $_GET['establecimiento'] ?? null;
         
         // Llama al modelo para obtener los registros filtrados
-        $registros = $this->registroModel->getRegistrosByEstablecimiento($establecimiento);
+        $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
         
         // Muestra la vista con los registros filtrados
         $this->registroView->showRegistros($registros);
     }
+    public function buscarRegistros() {
+        // Verifica si se ha enviado un establecimiento para filtrar
+        $establecimiento = $_GET['establecimiento'] ?? null;
+
+        // Verifica si hay un establecimiento y llama al modelo
+        if ($establecimiento) {
+            $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
+        } else {
+            $registros = []; // Manejo si no hay establecimiento
+        }
+
+        // Obtiene la lista de establecimientos
+        $establecimientos = $this->model->getEstablecimientos();
+
+        // Llama a la vista para mostrar los registros y los establecimientos
+        $this->view->showRegistros($registros, $establecimientos);
+    }
+    
 }
 

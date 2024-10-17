@@ -62,6 +62,10 @@ switch ($params[0]) {
     case 'logout':
         $controller = new AuthController();
         $controller->logout();
+    case 'buscar': 
+        $controller = new RegistroController($res);
+        $controller->buscarRegistros();
+            break;
     default: 
         echo "404 Page Not Found"; // deberiamos llamar a un controlador que maneje esto
         break;
