@@ -20,13 +20,10 @@
                         <span class="me-2">🕒</span>
                         <span>{$registro->hora|escape}</span>
                     </div>
-                   <div class="registro-detail">
-    {if $registro->action == 'entrada'}
-        <span class="text-success">🔵 {$registro->action}</span>
-    {else}
-        <span class="text-danger">🔴 {$registro->action}</span>
-    {/if}
-</div>
+                    <div class="registro-detail">
+                        <span class="me-2">🚪</span>
+                        <span class="me-2">{$registro->action}</span>
+                    </div>
                     <div class="registro-detail">
                         <span class="me-2">📅</span>
                         <span>{$registro->fecha}</span>
