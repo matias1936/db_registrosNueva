@@ -21,23 +21,37 @@ class RegistroController {
     }
 
     public function addRegistro() {
-        if (!isset($_POST['title']) || empty($_POST['title'])) {
-            return $this->view->showError('Falta completar el título');
+        // Verificar que todos los campos necesarios estén presentes
+        if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
+            return $this->view->showError('Falta completar el nombre');
         }
-    
-        if (!isset($_POST['priority']) || empty($_POST['priority'])) {
-            return $this->view->showError('Falta completar la prioridad');
+        if (!isset($_POST['accion']) || empty($_POST['accion'])) {
+            return $this->view->showError('Falta seleccionar la acción');
         }
+        if (!isset($_POST['fecha']) || empty($_POST['fecha'])) {
+            return $this->view->showError('Falta completar la fecha');
+        }
+        if (!isset($_POST['hora']) || empty($_POST['hora'])) {
+            return $this->view->showError('Falta completar la hora');
+        }
+        if (!isset($_POST['establecimiento_id']) || empty($_POST['establecimiento_id'])) {
+            return $this->view->showError('Falta seleccionar el establecimiento');
+        }
+        echo "Acción seleccionada: " . $_POST['accion']; // Verifica que esto muestre "entrada" o "salida"
+        // Obtener los valores del formulario
+        $nombre = $_POST['nombre'];
+        $accion = $_POST['accion'];
+        $fecha = $_POST['fecha'];
+        $hora = $_POST['hora'];
+        $establecimiento_id = $_POST['establecimiento_id'];
     
-        $title = $_POST['title'];
-        $description = $_POST['description'];
-        $priority = $_POST['priority'];
+        // Insertar el nuevo registro en la base de datos
+        $id = $this->model->insertRegistro($nombre, $accion, $fecha, $hora, $establecimiento_id);
     
-        $id = $this->model->insertRegistro($title, $description, $priority);
-    
-        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
+        // Redirigir al home o mostrar un mensaje de éxito
         header('Location: ' . BASE_URL);
     }
+    
 
     
     public function deleteRegistro($id) {

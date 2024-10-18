@@ -22,7 +22,6 @@ class RegistroView {
         $this->smarty->assign('registros', $registros);
         $this->smarty->assign('establecimientos', $establecimientos);
         $this->smarty->assign('count', count($registros));
-
         // Renderiza la plantilla `lista_registros.tpl`
         $this->smarty->display('lista_registros.tpl');
     }

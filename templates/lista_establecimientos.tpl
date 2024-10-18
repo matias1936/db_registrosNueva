@@ -1,22 +1,20 @@
-<?php require 'templates/header.tpl';
-?>
-
+{include file='header.tpl'}
+{include file='form_alta_establecimiento.tpl'}
 
 <div class="container mt-4">
     <h2>Establecimientos</h2>
     
     <ul class="list-group">
-        <?php foreach($establecimientos as $establecimiento): ?>
-            <li class="list-group-item item-registro ?>">
+        {foreach from=$establecimientos item=establecimiento}
+            <li class="list-group-item item-registro">
                 <div class="label">
-                    <b> <?= htmlspecialchars($establecimiento->nombre) ?></b> |
-                    ciudad <?= $establecimiento->ciudad ?>
+                    <b>{$establecimiento->nombre|escape}</b> | 
+                    ciudad {$establecimiento->ciudad|escape}
                 </div>
-               
             </li>
-        <?php endforeach ?>
+        {/foreach}
     </ul>
 
 </div>
 
-<?php require 'templates/footer.tpl' ?>
+{include file='footer.tpl'}

@@ -37,17 +37,16 @@
     </div>
 
     <div class="form-group">
-    <label for="establecimiento">Establecimiento</label>
-    <select required name="establecimiento_id" class="form-control" id="establecimiento">
-        <option value="" disabled selected>Selecciona un establecimiento</option>
-        <?php foreach ($establecimientos as $establecimiento): ?>
-            <option value="<?= htmlspecialchars($establecimiento->id) ?>">
-                <?= htmlspecialchars($establecimiento->nombre) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-
+        <label for="establecimiento">Establecimiento</label>
+        <select required name="establecimiento_id" class="form-control" id="establecimiento">
+            <option value="" disabled selected>Selecciona un establecimiento</option>
+            {foreach from=$establecimientos item=establecimiento}
+                <option value="{$establecimiento->id|escape}">
+                    {$establecimiento->nombre|escape}
+                </option>
+            {/foreach}
+        </select>
+    </div>
 
     <button type="submit" class="btn btn-primary mt-2">Guardar</button>
 </form>

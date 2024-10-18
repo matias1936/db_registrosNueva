@@ -1,34 +1,75 @@
-.item-task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-li.finished .label {
-    opacity: .4;
-    text-decoration: line-through;
-}
 .item-registro {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    gap: 10px;
+    max-width: 100%; /* Asegura que el contenedor no se desborde */
+    flex-wrap: wrap; /* Permite que los elementos se acomoden mejor en pantallas pequeñas */
+}
+
+.label {
+    flex: 2; /* Ocupa más espacio que los botones */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px; 
+    font-size: 14px;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; /* Corta el texto si es demasiado largo */
+}
+
+.label span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .actions {
     display: flex;
-    gap: 10px; /* Espacio entre los botones */
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap; /* Permite que los botones bajen si es necesario */
 }
 
-.btn {
-    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+.actions .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 12px; /* Ajusta el tamaño de los botones para que sean más pequeños */
 }
 
-.btn:hover {
-    filter: brightness(90%); /* Efecto de oscurecimiento al pasar el mouse */
+.container {
+    max-width: 800px; 
+    margin: auto; 
+    width: 100%;
 }
 
-.finished {
-    background-color: #d4edda; /* Color de fondo para registros finalizados */
-    color: #155724; /* Color de texto para registros finalizados */
-    text-decoration: line-through; /* Tachar el texto */
+@media (min-width: 768px) {
+    .item-registro {
+        flex-wrap: nowrap; /* En pantallas más grandes, mantenemos los elementos en una sola línea */
+    }
+}
+
+@media (max-width: 768px) {
+    .item-registro {
+        flex-wrap: wrap;
+    }
+
+    .label {
+        flex: 1 1 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        margin-bottom: 10px; /* Añade espacio debajo del label para los botones */
+    }
+
+    .actions {
+        flex: 1 1 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        justify-content: center; /* Centra los botones en pantallas pequeñas */
+    }
+
+    .actions .btn {
+        width: 100%; /* Botones de ancho completo en pantallas pequeñas */
+    }
 }

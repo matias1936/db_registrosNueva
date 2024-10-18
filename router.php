@@ -32,7 +32,7 @@ switch ($params[0]) {
     case 'listar':
         sessionAuthMiddleware($res);//
         //verifica si existe una sesión activa con un usuario autenticado 
-        $controller = new EstablecimientoController($res);
+        $controller = new RegistroController($res);
         $controller->showRegistros();
         break;
     case 'listar_establecimientos': 
@@ -40,14 +40,12 @@ switch ($params[0]) {
         $controller->showEstablecimientos(); 
         break;
     case 'nueva':
-        sessionAuthMiddleware($res); // Setea $res->user si existe session
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+        
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;
     case 'eliminar':
-        sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+         // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
         $controller->deleteRegistro($params[1]);
         break;
