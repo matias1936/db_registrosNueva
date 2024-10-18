@@ -1,20 +1,25 @@
 <?php
 require_once './app/models/registro.model.php';
+require_once './app/models/establecimiento.model.php';
+require_once './app/views/establecimiento.view.php';
 require_once './app/views/registro.view.php';
+
 
 class RegistroController {
     private $model;
+    private $establecimientomodel;
     private $view;
 
     public function __construct($res) {
         $this->model = new RegistroModel();
+        $this->establecimientomodel = new EstablecimientoModel();
         $this->view = new RegistroView($res->user);
     }
 
     public function showRegistros() {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
-        $establecimientos=$this->model->getEstablecimientos();
+        $establecimientos=$this->establecimientomodel->getEstablecimientos();
 
         // mando las registros a la vista
         return $this->view->showRegistros($Registros,$establecimientos);
@@ -87,7 +92,7 @@ class RegistroController {
         $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
         
         // Muestra la vista con los registros filtrados
-        $this->view->showRegistros($registros,$establecimientos);
+        $this->view->showRegistros($registros,$establecimiento);
     }
     public function buscarRegistros() {
         // Verifica si se ha enviado un establecimiento para filtrar
@@ -101,7 +106,7 @@ class RegistroController {
         }
 
         // Obtiene la lista de establecimientos
-        $establecimientos = $this->model->getEstablecimientos();
+        $establecimientos = $this->establecimientomodel->getEstablecimientos();
 
         // Llama a la vista para mostrar los registros y los establecimientos
         $this->view->showRegistros($registros, $establecimientos);
