@@ -40,13 +40,12 @@ switch ($params[0]) {
         $controller->showEstablecimientos(); 
         break;
     case 'nueva':
-         // Verifica que el usuario esté logueado o redirige a login
+        
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;
     case 'eliminar':
-        sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+         // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
         $controller->deleteRegistro($params[1]);
         break;
