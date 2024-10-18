@@ -40,8 +40,7 @@ switch ($params[0]) {
         $controller->showEstablecimientos(); 
         break;
     case 'nueva':
-        sessionAuthMiddleware($res); // Setea $res->user si existe session
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+         // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;

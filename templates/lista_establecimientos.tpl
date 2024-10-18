@@ -1,22 +1,13 @@
-<?php require 'templates/header.tpl';
-?>
-
-
 <div class="container mt-4">
     <h2>Establecimientos</h2>
     
     <ul class="list-group">
-        <?php foreach($establecimientos as $establecimiento): ?>
-            <li class="list-group-item item-registro ?>">
+        {foreach from=$establecimientos item=establecimiento}
+            <li class="list-group-item item-registro">
                 <div class="label">
-                    <b> <?= htmlspecialchars($establecimiento->nombre) ?></b> |
-                    ciudad <?= $establecimiento->ciudad ?>
+                    <b>{$establecimiento->nombre}</b> | Ciudad: {$establecimiento->ciudad}
                 </div>
-               
             </li>
-        <?php endforeach ?>
+        {/foreach}
     </ul>
-
 </div>
-
-<?php require 'templates/footer.tpl' ?>
