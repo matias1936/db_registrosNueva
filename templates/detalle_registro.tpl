@@ -2,33 +2,34 @@
 
 <div class="container mt-4">
     <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h2 class="card-title">Detalle del Registro</h2>
+        <div class="card-header bg-light text-dark">
+            <h1 class="card-title">Detalles del Registro</h1>
+            <h3 class="list-group-item"><strong>Establecimiento:</strong> {if $establecimiento->nombre}{$establecimiento->nombre|escape}{else}No disponible{/if}</h3>
         </div>
         <div class="card-body">
-            {if $data.registro_nombre}
+            {if $registro->nombre}
                 <div class="row">
                     <div class="col-md-4">
                         <!-- Imagen del establecimiento -->
-                        <p>Contenido de establecimiento_imagen: {$data.establecimiento_imagen|escape}</p>
-                        <img src="app/images/{$data.establecimiento_imagen|escape}" alt="Imagen de {$data.establecimiento_nombre|escape}" class="img-fluid rounded mb-3">
+                        {if $establecimiento->imagen}
+                            <img src="{$BASE_URL}{$establecimiento->imagen|escape}" class="card-img-top img-fluid rounded" alt="Imagen de {$establecimiento->nombre|escape}">
+                        {else}
+                            <p>No image available.</p>
+                        {/if}
                     </div>
                     <div class="col-md-8">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <strong>Nombre del Registro:</strong> {$data.registro_nombre|escape}
+                                <strong>Nombre:</strong> {$registro->nombre|escape}
                             </li>
                             <li class="list-group-item">
-                                <strong>Fecha de Registro:</strong> {$data.registro_fecha|date_format:"%d/%m/%Y"}
+                                <strong>Fecha:</strong> {$registro->fecha|date_format:"%d/%m/%Y"}
                             </li>
                             <li class="list-group-item">
-                                <strong>Hora de Registro:</strong> {$data.registro_hora|date_format:"%H:%M"}
+                                <strong>Hora:</strong> {$registro->hora|date_format:"%H:%M"}
                             </li>
                             <li class="list-group-item">
-                                <strong>Establecimiento:</strong> {if $data.establecimiento_nombre}{$data.establecimiento_nombre|escape}{else}No disponible{/if}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Dirección:</strong> {if $data.establecimiento_direccion}{$data.establecimiento_direccion|escape}, {$data.establecimiento_ciudad|escape}{else}No disponible{/if}
+                                <strong>Dirección:</strong> {if $establecimiento->direccion}{$establecimiento->direccion|escape}, {$establecimiento->ciudad|escape}{else}No disponible{/if}
                             </li>
                         </ul>
                     </div>

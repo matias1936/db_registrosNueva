@@ -8,7 +8,7 @@ class RegistroModel {
     }
     public function getRegistros() {
         $query = $this->db->prepare(
-            'SELECT r.*, e.nombre AS establecimiento_nombre
+            'SELECT r.*, e.nombre AS nombre_establecimiento
              FROM registros r
              LEFT JOIN establecimientos e ON r.establecimiento_id = e.id'
         );
@@ -47,22 +47,13 @@ class RegistroModel {
         $query->execute([$id]);
     }
 
-    public function getRegistrosByEstablecimiento($establecimiento) {
-        $query = $this->db->prepare(
-            'SELECT r.*, e.nombre AS establecimiento_nombre
-             FROM registros r
-             JOIN establecimientos e ON r.establecimiento_id = e.id
-             WHERE r.establecimiento_id = ?'
-        );
-        $query->execute([$establecimiento]);
+    public function getRegistrosByEstablecimientoId($id) {
+        $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento_id = ?');
+        $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getEstablecimientos() {
-        $query = $this->db->prepare('SELECT * FROM establecimientos');
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
-    }
+    
     public function getRegistroById($id) {
         // Prepara la consulta SQL
         $query = $this->db->prepare('SELECT * FROM registros WHERE id = ?');

@@ -20,7 +20,14 @@ class RegistroView {
         $this->smarty->assign('user', $this->user);
         $this->smarty->assign('registros', $registros);
         $this->smarty->assign('establecimientos', $establecimientos);
-        $this->smarty->assign('count', count($registros));
+        
+        // Verifica que $registros sea un array antes de contar
+        if (is_array($registros)) {
+            $this->smarty->assign('count', count($registros));
+        } else {
+            $this->smarty->assign('count', 0); // O maneja el caso de otra manera
+        }
+        
         // Renderiza la plantilla `lista_registros.tpl`
         $this->smarty->display('lista_registros.tpl');
     }
@@ -32,27 +39,11 @@ class RegistroView {
     }
     public function showDetalleRegistro($registro, $establecimiento) {
         // Crear instancia de Smarty
-        $smarty = new Smarty();
-    
-        // Verificar si el registro y el establecimiento no son nulos
-        if ($registro && $establecimiento) {
-            // Crear un arreglo con todos los datos necesarios
-            $data = [
-                'registro_nombre' => $registro->nombre,
-                'registro_fecha' => $registro->fecha,
-                'registro_hora' => $registro->hora,
-                'establecimiento_nombre' => $establecimiento->nombre,
-                'establecimiento_direccion' => $establecimiento->direccion,
-                'establecimiento_ciudad' => $establecimiento->ciudad,
-                'establecimiento_imagen' => $establecimiento->imagen
-            ];
-    
-            // Asignar el arreglo a Smarty
-            $smarty->assign('data', $data);
-        }
-    
-        // Mostrar la plantilla
-        $smarty->display('detalle_registro.tpl');
+        $this->smarty->assign('registro', $registro);
+        $this->smarty->assign('establecimiento', $establecimiento);
+        $this->smarty->assign('BASE_URL', BASE_URL);
+        $this->smarty->display( 'detalle_registro.tpl');
+        
     }
     
     

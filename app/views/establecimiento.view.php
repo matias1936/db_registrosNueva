@@ -1,26 +1,25 @@
 <?php
-include_once './libs/Smarty.class.php';
+require_once './libs/Smarty.class.php';
 use Smarty\Smarty;
 
 class EstablecimientoView {
     private $smarty;
 
     public function __construct($smarty) {
-        $this->smarty = $smarty;
+        $this->smarty = new Smarty();
     }
 
     public function showEstablecimientos($establecimientos) {
-        // Asigna las variables a Smarty
-
+        // Assign variables to Smarty
         $this->smarty->assign('establecimientos', $establecimientos);
         $this->smarty->assign('count', count($establecimientos));
-        // Renderiza la plantilla `lista_establecimientos.tpl`
+        
+        // Render the template `lista_establecimientos.tpl`
         $this->smarty->display('lista_establecimientos.tpl');
     }
 
-    
     public function showError($error) {
-        // Asigna el error a Smarty y muestra la plantilla `error.tpl`
+        // Assign the error to Smarty and show the template `error.tpl`
         $this->smarty->assign('error', $error);
         $this->smarty->display('error.tpl');
     }

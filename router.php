@@ -35,6 +35,10 @@ switch ($params[0]) {
         $controller = new RegistroController($res);
         $controller->showRegistros();
         break;
+    case 'verRegistro_establecimiento':
+        $establecimientocontroller = new EstablecimientoController($res);
+        $establecimientocontroller->verRegistroEstablecimiento($params[1]); // Pass the ID of the establishment
+        break;
     case 'listar_establecimientos': 
         $establecimientocontroller = new EstablecimientoController($res);
         $establecimientocontroller->showEstablecimientos(); 

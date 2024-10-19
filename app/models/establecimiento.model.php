@@ -4,46 +4,39 @@ class EstablecimientoModel {
     private $db;
 
     public function __construct() {
-        $this->db = new PDO('mysql:host=localhost;dbname=db_registros;charset=utf8', 'root', '');
+        try {
+            $this->db = new PDO('mysql:host=localhost;dbname=db_registros;charset=utf8', 'root', '');
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
+        }
     }
 
     public function getEstablecimientos() {
         $query = $this->db->prepare('SELECT * FROM establecimientos');
         $query->execute();
-        
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    
     public function getEstablecimientoById($id) {
-        // Prepara la consulta SQL para obtener un establecimiento por ID
         $query = $this->db->prepare('SELECT * FROM establecimientos WHERE id = ?');
         $query->execute([$id]);
-        
-        // Retorna el establecimiento si existe, o `false` si no se encuentra
-        return $query->fetch(PDO::FETCH_OBJ);
+        return $query->fetch(PDO::FETCH_OBJ) ?: null; // Return null if not found
     }
 
     public function addEstablecimiento($nombre, $ciudad, $direccion, $imagen) {
-        // Aquí iría la lógica para insertar en la base de datos
-        $stmt = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$nombre, $ciudad, $direccion, $imagen]);
+        $query = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
+        $query->execute([$nombre, $ciudad, $direccion, $imagen]);
     }
+    
     public function deleteEstablecimiento($id) {
-        $stmt = $this->db->prepare('DELETE FROM establecimientos WHERE id = ?');
-        $stmt->execute([$id]);
+        $query = $this->db->prepare('DELETE FROM establecimientos WHERE id = ?');
+        $query->execute([$id]);
     }
 
     public function moveImage($fileTemp, $filepath) {
-        // Verificar que la carpeta de destino existe y tiene permisos
         if (!file_exists(dirname($filepath))) {
-            mkdir(dirname($filepath), 0777, true); // Crea la carpeta si no existe
+            mkdir(dirname($filepath), 0777, true);
         }
-
-        // Mover el archivo de la ubicación temporal a la carpeta destino
-        if (move_uploaded_file($fileTemp, $filepath)) {
-            return true; // El movimiento fue exitoso
-        } else {
-            return false; // Falló al mover el archivo
-        }
+        return move_uploaded_file($fileTemp, $filepath);
     }
-    
 }

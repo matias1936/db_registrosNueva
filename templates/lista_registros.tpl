@@ -14,7 +14,7 @@
                     </div>
                     <div class="registro-detail">
                         <span class="me-2">🏢</span>
-                        <span>{$registro->establecimiento_nombre|escape}</span>
+                        <span>{$registro->nombre_establecimiento|escape}</span>
                     </div>
                     <div class="registro-detail">
                         <span class="me-2">🕒</span>

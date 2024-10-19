@@ -30,7 +30,7 @@ class RegistroController {
     public function showRegistros() {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
-        $establecimientos=$this->model->getEstablecimientos();
+        $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
 
         // mando las registros a la vista
         return $this->view->showRegistros($Registros,$establecimientos);
@@ -112,7 +112,7 @@ class RegistroController {
         $establecimiento = $_GET['establecimiento'] ?? null;
         
         // Llama al modelo para obtener los registros filtrados
-        $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
+        $registros = $this->model->getRegistrosByEstablecimientoId($establecimiento);
         
         // Muestra la vista con los registros filtrados
         $this->view->showRegistros($registros,$establecimiento);
@@ -123,13 +123,13 @@ class RegistroController {
 
         // Verifica si hay un establecimiento y llama al modelo
         if ($establecimiento) {
-            $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
+            $registros = $this->model->getRegistrosByEstablecimientoId($establecimiento);
         } else {
             $registros = []; // Manejo si no hay establecimiento
         }
 
         // Obtiene la lista de establecimientos
-        $establecimientos = $this->model->getEstablecimientos();
+        $establecimientos = $this->modelEstablecimiento->getEstablecimientos();
 
         // Llama a la vista para mostrar los registros y los establecimientos
         $this->view->showRegistros($registros, $establecimientos);

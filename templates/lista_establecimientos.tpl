@@ -13,10 +13,16 @@
                         <p class="card-text">Ciudad: {$establecimiento->ciudad|escape}</p>
                         <div class="actions">
                             <!-- Botón de Ver Registros -->
-                            <a href="verRegistros/{$establecimiento->id}" class="btn btn-primary">Ver Registros</a>
+                            <form action="verRegistro_establecimiento/{$establecimiento->id}" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="{$establecimiento->id}">
+                                <button type="submit" class="btn btn-success">Ver Registros</button>
+                            </form>
 
                             <!-- Botón de Eliminar -->
-                            <a href="eliminar_establecimiento/{$establecimiento->id}" class="btn btn-danger">Eliminar</a>
+                            <form action="eliminar_establecimiento" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="{$establecimiento->id}">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
