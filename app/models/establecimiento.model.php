@@ -13,11 +13,21 @@ class EstablecimientoModel {
         
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    public function getEstablecimientoById($id) {
+        $stmt = $this->db->prepare('SELECT * FROM establecimientos WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+    
 
     public function addEstablecimiento($nombre, $ciudad, $direccion, $imagen) {
         // Aquí iría la lógica para insertar en la base de datos
         $stmt = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
         $stmt->execute([$nombre, $ciudad, $direccion, $imagen]);
+    }
+    public function deleteEstablecimiento($id) {
+        $stmt = $this->db->prepare('DELETE FROM establecimientos WHERE id = ?');
+        $stmt->execute([$id]);
     }
 
     public function moveImage($fileTemp, $filepath) {

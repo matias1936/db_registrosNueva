@@ -44,6 +44,10 @@ switch ($params[0]) {
         $establecimientocontroller = new EstablecimientoController($res);
         $establecimientocontroller->addEstablecimiento(); // Llama a la función para agregar el establecimiento
         break;
+    case 'eliminar_establecimiento':
+        $establecimientocontroller = new EstablecimientoController($res);
+        $establecimientocontroller->deleteEstablecimiento();
+        break;
     case 'nueva':
         $controller = new RegistroController($res);
         $controller->addRegistro();

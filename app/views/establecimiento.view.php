@@ -10,15 +10,15 @@ class EstablecimientoView {
     }
 
     public function showEstablecimientos($establecimientos) {
-        // Crear instancia de Smarty
-        $smarty = new Smarty();
+        // Asigna las variables a Smarty
 
-        // Asignar la variable 'establecimientos' a Smarty
-        $smarty->assign('establecimientos', $establecimientos);
-
-        // Mostrar la plantilla 'lista_establecimientos.tpl'
-        $smarty->display('lista_establecimientos.tpl');
+        $this->smarty->assign('establecimientos', $establecimientos);
+        $this->smarty->assign('count', count($establecimientos));
+        // Renderiza la plantilla `lista_establecimientos.tpl`
+        $this->smarty->display('lista_establecimientos.tpl');
     }
+
+    
     public function showError($error) {
         // Asigna el error a Smarty y muestra la plantilla `error.tpl`
         $this->smarty->assign('error', $error);

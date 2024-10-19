@@ -6,7 +6,7 @@
     <h2>Registros</h2>
     <ul class="list-group">
         {foreach from=$registros item=registro}
-            <li class="list-group-item mb-2 p-3 shadow-sm bg-light rounded item-registro {if $registro->finalizada}finished{/if}">
+            <li class="list-group-item mb-2 p-3 shadow-sm bg-light rounded item-registro">
                 <div class="registro-info">
                     <div class="registro-detail">
                         <span class="me-2">📝</span>

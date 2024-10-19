@@ -68,6 +68,27 @@ class EstablecimientoController {
             return $this->view->showError('Error al subir la imagen');
         }
     }
+    public function deleteEstablecimiento() {
+        // Verificar que se haya pasado un ID a través de GET o POST
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            
+            // Obtener el establecimiento por ID
+            $establecimiento = $this->model->getEstablecimientoById($id);
+    
+            if (!$establecimiento) {
+                return $this->view->showError("No existe el establecimiento con el id=$id");
+            }
+    
+            // Borrar el establecimiento y redirigir
+            $this->model->deleteEstablecimiento($id);
+    
+            header('Location: ' . BASE_URL . '?action=listar_establecimientos');
+            exit;
+        } else {
+            return $this->view->showError("No se recibió un ID válido para eliminar el establecimiento.");
+        }
+    }
     
     
 }
