@@ -1,6 +1,7 @@
 <?php
 include_once './libs/Smarty.class.php';
 use Smarty\Smarty;
+
 class EstablecimientoView {
     private $smarty;
 

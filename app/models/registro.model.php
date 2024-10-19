@@ -63,4 +63,12 @@ class RegistroModel {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    public function getRegistroById($id) {
+        // Prepara la consulta SQL
+        $query = $this->db->prepare('SELECT * FROM registros WHERE id = ?');
+        $query->execute([$id]);
+
+        // Retorna el registro si existe, o `false` si no se encuentra
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
 }

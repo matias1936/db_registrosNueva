@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="registro-actions">
-                    <a href="modificar/{$registro->id}" class="btn btn-primary btn-sm me-2">Modificar</a>
+                    <a href="verDetalle_registro/{$registro->id}" class="btn btn-primary btn-sm me-2">Ver detalle</a>
                     <a href="eliminar/{$registro->id}" class="btn btn-danger btn-sm">Borrar</a>
                 </div>
             </li>

@@ -1,5 +1,4 @@
 <?php
-
 require_once './libs/Smarty.class.php';
 use Smarty\Smarty;
 
@@ -31,4 +30,10 @@ class RegistroView {
         $this->smarty->assign('error', $error);
         $this->smarty->display('error.tpl');
     }
+    public function showDetalleRegistro($registro) {
+        // Usar la instancia ya existente de Smarty
+        $this->smarty->assign('registro', $registro);
+        $this->smarty->display('detalle_registro.tpl');
+    }
+    
 }

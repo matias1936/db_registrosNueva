@@ -1,62 +1,43 @@
 <?php
 require_once './app/models/registro.model.php';
-require_once './app/models/establecimiento.model.php';
-require_once './app/views/establecimiento.view.php';
 require_once './app/views/registro.view.php';
-
 
 class RegistroController {
     private $model;
-    private $establecimientomodel;
     private $view;
 
     public function __construct($res) {
         $this->model = new RegistroModel();
-        $this->establecimientomodel = new EstablecimientoModel();
         $this->view = new RegistroView($res->user);
     }
 
     public function showRegistros() {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
-        $establecimientos=$this->establecimientomodel->getEstablecimientos();
+        $establecimientos=$this->model->getEstablecimientos();
 
         // mando las registros a la vista
         return $this->view->showRegistros($Registros,$establecimientos);
     }
 
     public function addRegistro() {
-        // Verificar que todos los campos necesarios estén presentes
-        if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
-            return $this->view->showError('Falta completar el nombre');
+        if (!isset($_POST['title']) || empty($_POST['title'])) {
+            return $this->view->showError('Falta completar el título');
         }
-        if (!isset($_POST['accion']) || empty($_POST['accion'])) {
-            return $this->view->showError('Falta seleccionar la acción');
-        }
-        if (!isset($_POST['fecha']) || empty($_POST['fecha'])) {
-            return $this->view->showError('Falta completar la fecha');
-        }
-        if (!isset($_POST['hora']) || empty($_POST['hora'])) {
-            return $this->view->showError('Falta completar la hora');
-        }
-        if (!isset($_POST['establecimiento_id']) || empty($_POST['establecimiento_id'])) {
-            return $this->view->showError('Falta seleccionar el establecimiento');
-        }
-        echo "Acción seleccionada: " . $_POST['accion']; // Verifica que esto muestre "entrada" o "salida"
-        // Obtener los valores del formulario
-        $nombre = $_POST['nombre'];
-        $accion = $_POST['accion'];
-        $fecha = $_POST['fecha'];
-        $hora = $_POST['hora'];
-        $establecimiento_id = $_POST['establecimiento_id'];
     
-        // Insertar el nuevo registro en la base de datos
-        $id = $this->model->insertRegistro($nombre, $accion, $fecha, $hora, $establecimiento_id);
+        if (!isset($_POST['priority']) || empty($_POST['priority'])) {
+            return $this->view->showError('Falta completar la prioridad');
+        }
     
-        // Redirigir al home o mostrar un mensaje de éxito
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $priority = $_POST['priority'];
+    
+        $id = $this->model->insertRegistro($title, $description, $priority);
+    
+        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
         header('Location: ' . BASE_URL);
     }
-    
 
     
     public function deleteRegistro($id) {
@@ -85,6 +66,18 @@ class RegistroController {
 
         header('Location: ' . BASE_URL);
     }
+    public function verDetalleRegistro($id) {
+        // Obtén el registro de la base de datos por ID
+        $registro = $this->model->getRegistroById($id);
+    
+        if ($registro) {
+            // Muestra la vista con los detalles del registro
+            $this->view->showDetalleRegistro($registro);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
+    }
+
     public function buscar() {
         $establecimiento = $_GET['establecimiento'] ?? null;
         
@@ -92,7 +85,7 @@ class RegistroController {
         $registros = $this->model->getRegistrosByEstablecimiento($establecimiento);
         
         // Muestra la vista con los registros filtrados
-        $this->view->showRegistros($registros,$establecimiento);
+        $this->view->showRegistros($registros,$establecimientos);
     }
     public function buscarRegistros() {
         // Verifica si se ha enviado un establecimiento para filtrar
@@ -106,11 +99,13 @@ class RegistroController {
         }
 
         // Obtiene la lista de establecimientos
-        $establecimientos = $this->establecimientomodel->getEstablecimientos();
+        $establecimientos = $this->model->getEstablecimientos();
 
         // Llama a la vista para mostrar los registros y los establecimientos
         $this->view->showRegistros($registros, $establecimientos);
     }
+
+    
     
 }
 
