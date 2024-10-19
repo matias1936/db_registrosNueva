@@ -30,10 +30,32 @@ class RegistroView {
         $this->smarty->assign('error', $error);
         $this->smarty->display('error.tpl');
     }
-    public function showDetalleRegistro($registro) {
-        // Usar la instancia ya existente de Smarty
-        $this->smarty->assign('registro', $registro);
-        $this->smarty->display('detalle_registro.tpl');
+    public function showDetalleRegistro($registro, $establecimiento) {
+        // Crear instancia de Smarty
+        $smarty = new Smarty();
+    
+        // Verificar si el registro y el establecimiento no son nulos
+        if ($registro && $establecimiento) {
+            // Crear un arreglo con todos los datos necesarios
+            $data = [
+                'registro_nombre' => $registro->nombre,
+                'registro_fecha' => $registro->fecha,
+                'registro_hora' => $registro->hora,
+                'establecimiento_nombre' => $establecimiento->nombre,
+                'establecimiento_direccion' => $establecimiento->direccion,
+                'establecimiento_ciudad' => $establecimiento->ciudad,
+                'establecimiento_imagen' => $establecimiento->imagen
+            ];
+    
+            // Asignar el arreglo a Smarty
+            $smarty->assign('data', $data);
+        }
+    
+        // Mostrar la plantilla
+        $smarty->display('detalle_registro.tpl');
     }
+    
+    
+    
     
 }

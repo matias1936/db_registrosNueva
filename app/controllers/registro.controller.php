@@ -1,16 +1,32 @@
 <?php
 require_once './app/models/registro.model.php';
 require_once './app/views/registro.view.php';
+require_once './app/models/establecimiento.model.php';
 
 class RegistroController {
     private $model;
     private $view;
+    private $modelEstablecimiento;
 
     public function __construct($res) {
         $this->model = new RegistroModel();
         $this->view = new RegistroView($res->user);
+        $this->modelEstablecimiento= new EstablecimientoModel();
     }
-
+    public function verDetalleRegistro($id) {
+        // Obtén el registro de la base de datos por ID
+        $registro = $this->model->getRegistro($id); // Aquí, "model" debería ser una instancia de RegistroModel
+        
+        if ($registro) {
+            // Obtén los detalles del establecimiento asociado al registro
+            $establecimiento = $this->modelEstablecimiento->getEstablecimientoById($registro->establecimiento_id);
+    
+            // Muestra la vista con los detalles del registro y del establecimiento
+            $this->view->showDetalleRegistro($registro, $establecimiento);
+        } else {
+            header('Location: ' . BASE_URL);
+        }
+    }
     public function showRegistros() {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
@@ -88,17 +104,9 @@ class RegistroController {
 
         header('Location: ' . BASE_URL);
     }
-    public function verDetalleRegistro($id) {
-        // Obtén el registro de la base de datos por ID
-        $registro = $this->model->getRegistroById($id);
     
-        if ($registro) {
-            // Muestra la vista con los detalles del registro
-            $this->view->showDetalleRegistro($registro);
-        } else {
-            header('Location: ' . BASE_URL);
-        }
-    }
+    
+    
 
     public function buscar() {
         $establecimiento = $_GET['establecimiento'] ?? null;
