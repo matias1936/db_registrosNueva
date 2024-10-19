@@ -40,7 +40,6 @@ switch ($params[0]) {
         $controller->showEstablecimientos(); 
         break;
     case 'nueva':
-        
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;
@@ -70,6 +69,10 @@ switch ($params[0]) {
         $controller = new RegistroController($res);
         $controller->buscarRegistros();
             break;
+    case 'verDetalle_registro':
+        $controller = new RegistroController($res);
+        $controller->verDetalleRegistro($params[1]); // Manda el ID del registro
+        break;
     default: 
         echo "404 Page Not Found"; // deberiamos llamar a un controlador que maneje esto
         break;
