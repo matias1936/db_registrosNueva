@@ -14,11 +14,13 @@ class EstablecimientoModel {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
     public function getEstablecimientoById($id) {
-        $stmt = $this->db->prepare('SELECT * FROM establecimientos WHERE id = ?');
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_OBJ);
+        // Prepara la consulta SQL para obtener un establecimiento por ID
+        $query = $this->db->prepare('SELECT * FROM establecimientos WHERE id = ?');
+        $query->execute([$id]);
+        
+        // Retorna el establecimiento si existe, o `false` si no se encuentra
+        return $query->fetch(PDO::FETCH_OBJ);
     }
-    
 
     public function addEstablecimiento($nombre, $ciudad, $direccion, $imagen) {
         // Aquí iría la lógica para insertar en la base de datos
