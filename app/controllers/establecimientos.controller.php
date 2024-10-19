@@ -24,13 +24,13 @@ class EstablecimientoController {
 
     public function addEstablecimiento() {
         // Verificar que todos los campos necesarios estén presentes
-        if (!isset($_POST['nombre']) || empty($_POST['nombre'])) {
+        if (empty($_POST['nombre'])) {
             return $this->view->showError('Falta completar el nombre');
         }
-        if (!isset($_POST['ciudad']) || empty($_POST['ciudad'])) {
+        if (empty($_POST['ciudad'])) {
             return $this->view->showError('Falta completar la ciudad');
         }
-        if (!isset($_POST['direccion']) || empty($_POST['direccion'])) {
+        if (empty($_POST['direccion'])) {
             return $this->view->showError('Falta completar la dirección');
         }
         
@@ -40,12 +40,13 @@ class EstablecimientoController {
             $fileType = $_FILES['imagen']['type'];
             
             // Validar el tipo de archivo
-            if ($fileType == "image/jpg" || $fileType == "image/jpeg" || $fileType == "image/png") {
+            $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+            if (in_array($fileType, $allowedTypes)) {
                 // Define la ruta donde se guardará la imagen
-                $filepath = 'ruta/a/tu/carpeta/imagenes/' . basename($_FILES['imagen']['name']);
+                $filepath = 'app/images/' . basename($_FILES['imagen']['name']);
                 
-                // Mover el archivo a la ruta especificada
-                if (move_uploaded_file($fileTemp, $filepath)) {
+                // Mover el archivo usando la nueva función del modelo
+                if ($this->model->moveImage($fileTemp, $filepath)) {
                     // Guardar el establecimiento en la base de datos
                     $nombre = $_POST['nombre'];
                     $ciudad = $_POST['ciudad'];
@@ -55,7 +56,8 @@ class EstablecimientoController {
                     $this->model->addEstablecimiento($nombre, $ciudad, $direccion, $filepath);
                     
                     // Redirigir al home o mostrar un mensaje de éxito
-                    header('Location: ' . BASE_URL);
+                    header('Location: ' . BASE_URL . '?action=listar_establecimientos');
+                    exit; // Asegúrate de salir después de la redirección
                 } else {
                     return $this->view->showError('Error al mover el archivo de imagen');
                 }
@@ -66,5 +68,6 @@ class EstablecimientoController {
             return $this->view->showError('Error al subir la imagen');
         }
     }
+    
     
 }

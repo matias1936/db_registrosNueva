@@ -19,5 +19,19 @@ class EstablecimientoModel {
         $stmt = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
         $stmt->execute([$nombre, $ciudad, $direccion, $imagen]);
     }
+
+    public function moveImage($fileTemp, $filepath) {
+        // Verificar que la carpeta de destino existe y tiene permisos
+        if (!file_exists(dirname($filepath))) {
+            mkdir(dirname($filepath), 0777, true); // Crea la carpeta si no existe
+        }
+
+        // Mover el archivo de la ubicación temporal a la carpeta destino
+        if (move_uploaded_file($fileTemp, $filepath)) {
+            return true; // El movimiento fue exitoso
+        } else {
+            return false; // Falló al mover el archivo
+        }
+    }
     
 }
