@@ -9,7 +9,7 @@
 <div class="collapse" id="formEstablecimiento">
     <div class="card card-body">
         <h4 class="mb-3 text-center">Subir Establecimiento</h4>
-        <form action="upload_establecimiento.php" method="POST" enctype="multipart/form-data">
+        <form action="cargar_establecimiento" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre del Establecimiento:</label>
                 <input type="text" class="form-control" name="nombre" required>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="text-center">
-                <input type="submit" class="btn btn-success" value="Subir Establecimiento">
+                <button type="submit" class="btn btn-success">Cargar Establecimiento</button>
             </div>
         </form>
     </div>

@@ -18,4 +18,9 @@ class EstablecimientoView {
         // Mostrar la plantilla 'lista_establecimientos.tpl'
         $smarty->display('lista_establecimientos.tpl');
     }
+    public function showError($error) {
+        // Asigna el error a Smarty y muestra la plantilla `error.tpl`
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('error.tpl');
+    }
 }

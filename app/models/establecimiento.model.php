@@ -13,4 +13,11 @@ class EstablecimientoModel {
         
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function addEstablecimiento($nombre, $ciudad, $direccion, $imagen) {
+        // Aquí iría la lógica para insertar en la base de datos
+        $stmt = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$nombre, $ciudad, $direccion, $imagen]);
+    }
+    
 }

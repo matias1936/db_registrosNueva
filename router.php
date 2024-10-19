@@ -36,11 +36,15 @@ switch ($params[0]) {
         $controller->showRegistros();
         break;
     case 'listar_establecimientos': 
-        $controller = new EstablecimientoController($res);
-        $controller->showEstablecimientos(); 
+        $establecimientocontroller = new EstablecimientoController($res);
+        $establecimientocontroller->showEstablecimientos(); 
+        break;
+    case 'cargar_establecimiento':
+        
+        $establecimientocontroller = new EstablecimientoController($res);
+        $establecimientocontroller->addEstablecimiento(); // Llama a la función para agregar el establecimiento
         break;
     case 'nueva':
-        
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;
