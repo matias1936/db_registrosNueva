@@ -1,10 +1,14 @@
 {include file='header.tpl'}
+<div class="button">
+            <a href="{$BASE_URL}?action=listar" class="btn btn-secondary">Volver</a>
+        </div>
 {include file='form_alta_establecimiento.tpl'}
 
 <div class="container mt-4">
     <h2>Establecimientos</h2>
     <div class="row">
         {foreach from=$establecimientos item=establecimiento}
+        
             <div class="col-md-4 mb-3">
                 <div class="card item-registro">
                     <img src="{$establecimiento->imagen|escape}" class="card-img-top" alt="Imagen de {$establecimiento->nombre|escape}">
@@ -13,7 +17,8 @@
                         <p class="card-text">Ciudad: {$establecimiento->ciudad|escape}</p>
                         <div class="actions">
                             <!-- Botón de Ver Registros -->
-                            <form action="verRegistro_establecimiento/{$establecimiento->id}" method="POST" style="display:inline;">
+
+                            <form action="verRegistro_establecimiento" method="POST" style="display:inline;">
                                 <input type="hidden" name="id" value="{$establecimiento->id}">
                                 <button type="submit" class="btn btn-success">Ver Registros</button>
                             </form>

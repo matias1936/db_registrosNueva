@@ -42,9 +42,9 @@ class RegistroModel {
         $query->execute([$id]);
     }
 
-    public function updateRegistro($id) {        
-        $query = $this->db->prepare('UPDATE registros SET finalizada = 1 WHERE id = ?');
-        $query->execute([$id]);
+    public function updateRegistro($id, $nombre, $action, $fecha, $hora,$establecimiento_id) {
+        $query = $this->db->prepare('UPDATE registros SET nombre = ?, action = ?, fecha = ?, hora = ?, establecimiento_id = ? WHERE id = ?');
+        $query->execute([$nombre, $action, $fecha, $hora, $id, $establecimiento_id]);
     }
 
     public function getRegistrosByEstablecimientoId($id) {

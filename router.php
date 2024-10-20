@@ -37,7 +37,7 @@ switch ($params[0]) {
         break;
     case 'verRegistro_establecimiento':
         $establecimientocontroller = new EstablecimientoController($res);
-        $establecimientocontroller->verRegistroEstablecimiento($params[1]); // Pass the ID of the establishment
+        $establecimientocontroller->verRegistrosEstablecimiento(); // Pass the ID of the establishment
         break;
     case 'listar_establecimientos': 
         $establecimientocontroller = new EstablecimientoController($res);
@@ -61,11 +61,15 @@ switch ($params[0]) {
         $controller = new RegistroController($res);
         $controller->deleteRegistro($params[1]);
         break;
-    case 'finalizar':
-        sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+    case 'modificar':
+        //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
-        $controller->finishRegistro($params[1]);
+        $controller->updateRegistro($params[1]);
+        break;
+    case 'formModificar':
+        $controller = new RegistroController($res);
+        $controller->mostrarFormModificar($params[1]);
         break;
     case 'showLogin':
         $controller = new AuthController();

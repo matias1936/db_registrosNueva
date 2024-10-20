@@ -27,17 +27,50 @@ class EstablecimientoController {
         return $this->view->showEstablecimientos($establecimientos);
     }
 
-    public function verRegistroEstablecimiento($id) {
+
+
+
+
+    public function verRegistrosEstablecimiento() {
         // Obtener los registros filtrados por el ID del establecimiento
-        $registros = $this->registroModel->getRegistrosByEstablecimientoId($id);
-        
-        // Obtener los establecimientos (si es necesario, asegúrate de que esta variable esté disponible)
-        $establecimientos = $this->model->getEstablecimientos(); // Asegúrate de que esta función exista
-    
-        // Llamar a la función showRegistros en la vista
-        return $this->registroView->showRegistros($registros, $establecimientos);
+        if (isset($_POST['id'])) { 
+            $id = $_POST['id'];
+
+            $registros = $this->registroModel->getRegistrosByEstablecimientoId($id);
+            
+            // Obtener los establecimientos (si es necesario, asegúrate de que esta variable esté disponible)
+            $establecimiento = $this->model->getEstablecimientoById($id); // Asegúrate de que esta función exista
+            $establecimientos = $this->model->getEstablecimientos();
+            // Llamar a la función showRegistros en la vista
+        return $this->registroView->showRegistrosByEstablecimiento($registros, $establecimiento,$establecimientos);
+    } else {
+        return $this->view->showError("No se recibió un ID válido para un registro.");
+    }
     }
 
+
+
+    public function deleteEstablecimiento() {
+        // Check if an ID has been passed via POST
+        if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            
+            // Get the establishment by ID
+            $establecimiento = $this->model->getEstablecimientoById($id);
+    
+            if (!$establecimiento) {
+                return $this->view->showError("No existe el establecimiento con el id=$id");
+            }
+    
+            // Delete the establishment and redirect
+            $this->model->deleteEstablecimiento($id);
+    
+            header('Location: ' . BASE_URL . '?action=listar_establecimientos');
+            exit;
+        } else {
+            return $this->view->showError("No se recibió un ID válido para eliminar el establecimiento.");
+        }
+    }
     public function addEstablecimiento() {
         // Validate required fields
         if (empty($_POST['nombre'])) {
@@ -85,25 +118,5 @@ class EstablecimientoController {
         }
     }
     
-    public function deleteEstablecimiento() {
-        // Check if an ID has been passed via POST
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-            
-            // Get the establishment by ID
-            $establecimiento = $this->model->getEstablecimientoById($id);
     
-            if (!$establecimiento) {
-                return $this->view->showError("No existe el establecimiento con el id=$id");
-            }
-    
-            // Delete the establishment and redirect
-            $this->model->deleteEstablecimiento($id);
-    
-            header('Location: ' . BASE_URL . '?action=listar_establecimientos');
-            exit;
-        } else {
-            return $this->view->showError("No se recibió un ID válido para eliminar el establecimiento.");
-        }
-    }
 }

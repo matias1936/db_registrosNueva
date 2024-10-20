@@ -1,9 +1,10 @@
 {include file='header.tpl'}
-{include file='form_alta_registro.tpl'}
-
+<div class="button">
+            <a href="{$BASE_URL}?action=listar_establecimientos" class="btn btn-secondary">Volver</a>
+        </div>
 <div class="container mt-4">
     {include file='form_buscar_categoria.tpl'}
-    <h2>Registro</h2>
+    <h2>Registros</h2>
     <ul class="list-group">
         {foreach from=$registros item=registro}
             <li class="list-group-item mb-2 p-3 shadow-sm bg-light rounded item-registro">
@@ -14,7 +15,7 @@
                     </div>
                     <div class="registro-detail">
                         <span class="me-2">🏢</span>
-                        <span>{$registro->nombre_establecimiento|escape}</span>
+                        <span>{$establecimiento->nombre|escape}</span>
                     </div>
                     <div class="registro-detail">
                         <span class="me-2">🕒</span>
@@ -33,7 +34,6 @@
                     <a href="verDetalle_registro/{$registro->id}" class="btn btn-primary btn-sm me-2">Ver detalle</a>
                     <a href="eliminar/{$registro->id}" class="btn btn-danger btn-sm">Borrar</a>
                     <a href="formModificar/{$registro->id}" class="btn btn-success btn-sm">Modificar</a>
-                </div>
             </li>
         {/foreach}
     </ul>

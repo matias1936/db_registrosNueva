@@ -1,5 +1,5 @@
 <h3>Buscar por establecimiento</h3>
-    <form action="buscar" method="GET" class="mb-4">
+    <form method="GET" action="buscar" class="mb-4">
         <div class="row">
             <div class="col">
                 <select name="establecimiento" class="form-control" id="establecimiento">

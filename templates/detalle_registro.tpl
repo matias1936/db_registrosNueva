@@ -23,6 +23,9 @@
                                 <strong>Nombre:</strong> {$registro->nombre|escape}
                             </li>
                             <li class="list-group-item">
+                                <strong>Accion:</strong> {$registro->action|escape}
+                            </li>
+                            <li class="list-group-item">
                                 <strong>Fecha:</strong> {$registro->fecha|date_format:"%d/%m/%Y"}
                             </li>
                             <li class="list-group-item">

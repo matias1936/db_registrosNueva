@@ -27,7 +27,23 @@ class RegistroController {
             header('Location: ' . BASE_URL);
         }
     }
+
+
+
+    
     public function showRegistros() {
+        // obtengo las registros de la DB
+        $Registros = $this->model->getRegistros();
+        $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
+
+        // mando las registros a la vista
+        return $this->view->showRegistros($Registros,$establecimientos);
+    }
+
+
+
+
+    public function showRegistrosByEstablecimiento($id) {
         // obtengo las registros de la DB
         $Registros = $this->model->getRegistros();
         $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
@@ -92,47 +108,51 @@ class RegistroController {
         header('Location: ' . BASE_URL);
     }
 
-    public function finishRegistro($id) {
+    public function mostrarFormModificar($id) {
         $registro = $this->model->getRegistro($id);
+        $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
+        $this->view->showModifyRegistroForm($registro,$establecimientos); // Pasar el registro a modificar
+    }
 
-        if (!$registro) {
-            return $this->view->showError("No existe la registro con el id=$id");
+    public function updateRegistro($id) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nombre = $_POST['nombre'];
+            $action = $_POST['action'];
+            $fecha = $_POST['fecha'];
+            $hora = $_POST['hora'];
+            $establecimiento_id = $_POST['establecimiento_id'];
+           
+            $this->model->updateRegistro($id, $nombre, $action, $fecha, $hora,$establecimiento_id);
+    
+            header('Location: ' . BASE_URL);
+        } else {
+            // Redirigir a la lista si no es una solicitud POST
+            header('Location: ' . BASE_URL);
         }
-
-        // actualiza la registro
-        $this->model->updateRegistro($id);
-
-        header('Location: ' . BASE_URL);
     }
     
-    
-    
 
-    public function buscar() {
-        $establecimiento = $_GET['establecimiento'] ?? null;
-        
-        // Llama al modelo para obtener los registros filtrados
-        $registros = $this->model->getRegistrosByEstablecimientoId($establecimiento);
-        
-        // Muestra la vista con los registros filtrados
-        $this->view->showRegistros($registros,$establecimiento);
-    }
+
+
     public function buscarRegistros() {
         // Verifica si se ha enviado un establecimiento para filtrar
-        $establecimiento = $_GET['establecimiento'] ?? null;
-
+        $establecimientoId = $_GET['establecimiento'] ?? null;
+        $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
+    
         // Verifica si hay un establecimiento y llama al modelo
-        if ($establecimiento) {
-            $registros = $this->model->getRegistrosByEstablecimientoId($establecimiento);
+        if ($establecimientoId) {
+            // Obtener los registros filtrados por el ID del establecimiento
+            $registros = $this->model->getRegistrosByEstablecimientoId($establecimientoId);
+    
+            // Obtener el objeto del establecimiento para más detalles
+            $establecimiento = $this->modelEstablecimiento->getEstablecimientoById($establecimientoId);
         } else {
             $registros = []; // Manejo si no hay establecimiento
+            $establecimiento = null; // No hay establecimiento
         }
-
-        // Obtiene la lista de establecimientos
-        $establecimientos = $this->modelEstablecimiento->getEstablecimientos();
-
+    
         // Llama a la vista para mostrar los registros y los establecimientos
-        $this->view->showRegistros($registros, $establecimientos);
+        $this->view->showRegistrosByEstablecimiento($registros, $establecimiento,$establecimientos);
     }
 
     
