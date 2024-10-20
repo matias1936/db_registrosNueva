@@ -27,6 +27,13 @@ class EstablecimientoModel {
         $query = $this->db->prepare("INSERT INTO establecimientos (nombre, ciudad, direccion, imagen) VALUES (?, ?, ?, ?)");
         $query->execute([$nombre, $ciudad, $direccion, $imagen]);
     }
+    public function updateEstablecimiento($nombre, $ciudad, $direccion, $imagen, $id) {
+        // Consulta SQL corregida
+        $query = $this->db->prepare("UPDATE establecimientos SET nombre = ?, ciudad = ?, direccion = ?, imagen = ? WHERE id = ?");
+        
+        // Ejecutar la consulta con los parámetros correspondientes
+        $query->execute([$nombre, $ciudad, $direccion, $imagen, $id]);
+    }
     
     public function deleteEstablecimiento($id) {
         $query = $this->db->prepare('DELETE FROM establecimientos WHERE id = ?');
@@ -39,4 +46,5 @@ class EstablecimientoModel {
         }
         return move_uploaded_file($fileTemp, $filepath);
     }
+   
 }

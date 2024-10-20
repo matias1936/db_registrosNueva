@@ -38,7 +38,7 @@
         {/foreach}
     </ul>
     
-    <p class="mt-3"><small>Mostrando {$count} registros</small></p>
+    <p class="mt-3"><small>Existen {$count} registros</small></p>
 </div>
 
 {include file='footer.tpl'}

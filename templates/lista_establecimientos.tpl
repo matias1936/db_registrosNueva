@@ -16,7 +16,8 @@
                         <h5 class="card-title">{$establecimiento->nombre|escape}</h5>
                         <p class="card-text">Ciudad: {$establecimiento->ciudad|escape}</p>
                         <div class="actions">
-                            <!-- Botón de Ver Registros -->
+
+                             <a href="formModificarEstablecimiento/{$establecimiento->id}" class="btn btn-success btn-sm">Modificar</a>
 
                             <form action="verRegistro_establecimiento" method="POST" style="display:inline;">
                                 <input type="hidden" name="id" value="{$establecimiento->id}">
@@ -28,6 +29,7 @@
                                 <input type="hidden" name="id" value="{$establecimiento->id}">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
+                            
                         </div>
                     </div>
                 </div>

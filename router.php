@@ -71,6 +71,17 @@ switch ($params[0]) {
         $controller = new RegistroController($res);
         $controller->mostrarFormModificar($params[1]);
         break;
+        
+    case 'modificar_establecimiento':
+        //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+        $controller = new EstablecimientoController($res);
+        $controller->updateEstablecimiento($params[1]);
+        break;
+    case 'formModificarEstablecimiento':
+        $controller = new EstablecimientoController($res);
+        $controller->mostrarFormModificarEstablecimiento($params[1]);
+        break;
     case 'showLogin':
         $controller = new AuthController();
         $controller->showLogin();

@@ -1,5 +1,7 @@
 {include file='header.tpl'}
-
+<div class="button">
+    <a href="{$BASE_URL}?action=listar" class="btn btn-secondary">Volver</a>
+</div>
 <div class="container mt-4">
     <div class="card shadow-sm">
         <div class="card-header bg-light text-dark">

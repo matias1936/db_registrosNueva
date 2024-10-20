@@ -23,4 +23,13 @@ class EstablecimientoView {
         $this->smarty->assign('error', $error);
         $this->smarty->display('error.tpl');
     }
+    public function showModifyEstablecimientoForm($establecimiento) {
+        // Asignar el registro a la plantilla
+    
+        $this->smarty->assign('establecimiento', $establecimiento);
+        $this->smarty->assign('BASE_URL', BASE_URL);
+        
+        // Mostrar la plantilla de modificación
+        $this->smarty->display('modifyEstablecimiento_form.tpl');
+    }
 }
