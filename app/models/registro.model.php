@@ -42,10 +42,17 @@ class RegistroModel {
         $query->execute([$id]);
     }
 
-    public function updateRegistro($id, $nombre, $action, $fecha, $hora,$establecimiento_id) {
-        $query = $this->db->prepare('UPDATE registros SET nombre = ?, action = ?, fecha = ?, hora = ?, establecimiento_id = ? WHERE id = ?');
-        $query->execute([$nombre, $action, $fecha, $hora, $id, $establecimiento_id]);
+    public function updateRegistro($id, $nombre, $action, $fecha, $hora, $establecimiento_id) {
+    $query = $this->db->prepare('UPDATE registros SET nombre = ?, action = ?, fecha = ?, hora = ?, establecimiento_id = ? WHERE id = ?');
+    if ($query->execute([$nombre, $action, $fecha, $hora, $establecimiento_id, $id])) {
+        return true; // O cualquier otra lógica que necesites
+    } else {
+        // Manejo de errores
+        $errorInfo = $query->errorInfo();
+        echo "Error en la consulta: " . $errorInfo[2];
+        return false;
     }
+}
 
     public function getRegistrosByEstablecimientoId($id) {
         $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento_id = ?');
