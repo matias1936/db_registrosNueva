@@ -15,10 +15,10 @@ class EstablecimientoController {
     private $smarty;
 
     public function __construct($res) {
-        $this->smarty = new Smarty(); // Create the Smarty instance here
+        $this->smarty = new Smarty();
         $this->model = new EstablecimientoModel();
+        $this->view = new EstablecimientoView($res->user); 
         $this->registroModel = new RegistroModel();
-        $this->view = new EstablecimientoView($res->user); // Pass the Smarty instance to the view
         $this->registroView = new RegistroView($res->user);
     }
 
@@ -27,52 +27,40 @@ class EstablecimientoController {
         return $this->view->showEstablecimientos($establecimientos);
     }
 
-
-
-
-
     public function verRegistrosEstablecimiento() {
-        // Obtener los registros filtrados por el ID del establecimiento
         if (isset($_POST['id'])) { 
             $id = $_POST['id'];
-
             $registros = $this->registroModel->getRegistrosByEstablecimientoId($id);
-            
-            // Obtener los establecimientos (si es necesario, asegúrate de que esta variable esté disponible)
-            $establecimiento = $this->model->getEstablecimientoById($id); // Asegúrate de que esta función exista
+            $establecimiento = $this->model->getEstablecimientoById($id); 
             $establecimientos = $this->model->getEstablecimientos();
-            // Llamar a la función showRegistros en la vista
-        return $this->registroView->showRegistrosByEstablecimiento($registros, $establecimiento,$establecimientos);
-    } else {
-        return $this->view->showError("No se recibió un ID válido para un registro.");
+            
+            return $this->registroView->showRegistrosByEstablecimiento($registros, $establecimiento,$establecimientos);
+        } 
+        else {
+            return $this->view->showError("No se recibió un ID válido para un registro.");
+        }
     }
-    }
-
-
 
     public function deleteEstablecimiento() {
-        // Check if an ID has been passed via POST
         if (isset($_POST['id'])) {
+
             $id = $_POST['id'];
-            
-            // Get the establishment by ID
             $establecimiento = $this->model->getEstablecimientoById($id);
     
             if (!$establecimiento) {
-                return $this->view->showError("No existe el establecimiento con el id=$id");
-            }
-    
-            // Delete the establishment and redirect
+                return $this->view->showError("No existe el establecimiento con el id=$id");}
+
             $this->model->deleteEstablecimiento($id);
     
             header('Location: ' . BASE_URL . '?action=listar_establecimientos');
-            exit;
-        } else {
+            exit;    
+        } 
+        else {
             return $this->view->showError("No se recibió un ID válido para eliminar el establecimiento.");
         }
     }
+
     public function addEstablecimiento() {
-        // Validate required fields
         if (empty($_POST['nombre'])) {
             return $this->view->showError('Falta completar el nombre');
         }
@@ -83,42 +71,40 @@ class EstablecimientoController {
             return $this->view->showError('Falta completar la dirección');
         }
         
-        // Check if an image has been uploaded
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+
             $fileTemp = $_FILES['imagen']['tmp_name'];
             $fileType = $_FILES['imagen']['type'];
-            
-            // Validate the file type
             $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+
             if (in_array($fileType, $allowedTypes)) {
-                // Define the path where the image will be saved
+
                 $filepath = 'app/images/' . basename($_FILES['imagen']['name']);
-                
-                // Move the file using the model's function
+
                 if ($this->model->moveImage($fileTemp, $filepath)) {
-                    // Save the establishment in the database
                     $nombre = $_POST['nombre'];
                     $ciudad = $_POST['ciudad'];
                     $direccion = $_POST['direccion'];
-                    
-                    // Insert the new establishment into the database
                     $this->model->addEstablecimiento($nombre, $ciudad, $direccion, $filepath);
-                    
-                    // Redirect to the home or show a success message
                     header('Location: ' . BASE_URL . '?action=listar_establecimientos');
-                    exit; // Ensure to exit after redirection
-                } else {
+                    exit; 
+                } 
+                else {
                     return $this->view->showError('Error al mover el archivo de imagen');
                 }
-            } else {
+                
+            } 
+            else {
                 return $this->view->showError('El tipo de archivo de imagen no es válido');
             }
-        } else {
+
+        } 
+        else {
             return $this->view->showError('Error al subir la imagen');
         }
     }
+
     public function updateEstablecimiento($id) {
-        // Validar campos requeridos
         if (empty($_POST['nombre'])) {
             return $this->view->showError('Falta completar el nombre');
         }
@@ -128,8 +114,6 @@ class EstablecimientoController {
         if (empty($_POST['direccion'])) {
             return $this->view->showError('Falta completar la dirección');
         }
-    
-        // Obtener los datos del formulario
         $nombre = $_POST['nombre'];
         $ciudad = $_POST['ciudad'];
         $direccion = $_POST['direccion'];
@@ -152,12 +136,13 @@ class EstablecimientoController {
                 if (!$this->model->moveImage($fileTemp, $filepath)) {
                     return $this->view->showError('Error al mover el archivo de imagen');
                 }
-            } else {
+            } 
+            else {
                 return $this->view->showError('El tipo de archivo de imagen no es válido');
             }
-        } else {
-            // Si no se subió una nueva imagen, mantener la imagen existente
-            $filepath = $_POST['imagen_actual']; // Este valor debería pasarse desde el formulario
+        } 
+        else {
+            $filepath = $_POST['imagen_actual'];
         }
     
         // Llamar al modelo para actualizar el establecimiento
@@ -167,14 +152,11 @@ class EstablecimientoController {
         header('Location: ' . BASE_URL . '?action=listar_establecimientos');
         exit; // Finalizar la ejecución después de la redirección
     }
-    
-    
-    
-    
-    
     public function mostrarFormModificarEstablecimiento($id) {
+
         $establecimiento = $this->model->getEstablecimientoById($id);
         $this->view->showModifyEstablecimientoForm($establecimiento);
+
     }
     
 }

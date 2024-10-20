@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2024 a las 20:20:38
+-- Tiempo de generación: 20-10-2024 a las 23:24:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,9 +41,8 @@ CREATE TABLE `establecimientos` (
 
 INSERT INTO `establecimientos` (`id`, `nombre`, `ciudad`, `direccion`, `imagen`) VALUES
 (14, 'Colegio N°2 \"Florentino Ameginho\"', 'Tandil', 'Av. España 851, Tandil, Provincia de Buenos Aires', 'app/images/Escuela_N_2_Florentino_Ameginho.jpg'),
-(16, 'Colegio Técnico \"Olga B de Arko\"', 'Ushuaia', 'Gdor. Paz, Ushuaia, Tierra del Fuego', 'app/images/Epet Ushuaia.jpg'),
-(18, 'Escuela N 34', 'ushuaia', 'gobernador campos 1333', 'app/images/escuelaobras.jpg'),
-(19, 'Unicen', 'Tandil', 'campus Universitario 1200', 'app/images/1612051984.jpeg');
+(18, 'Escuela Juana Manso', 'ushuaia', 'anuka 233', 'app/images/Escuela_N_20.jpg'),
+(19, 'Escuela para niños ', 'Ushuaia', 'campus Universitario 1200', 'app/images/Escuela_N_2_Florentino_Ameginho.jpg');
 
 -- --------------------------------------------------------
 
@@ -65,9 +64,7 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `nombre`, `action`, `fecha`, `hora`, `establecimiento_id`) VALUES
-(20, 'Cristal Ramos', '', '2024-10-17', '11:21:00', 14),
-(21, 'Gustavo Ramos', 'ENTRADA', '2024-10-25', '04:21:00', 18),
-(23, 'Erica Lens', 'ENTRADA', '2002-04-16', '15:36:00', 19);
+(25, 'Lionel Messi', 'ENTRADA', '2024-10-11', '20:50:00', 19);
 
 -- --------------------------------------------------------
 
@@ -120,13 +117,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `establecimientos`
 --
 ALTER TABLE `establecimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

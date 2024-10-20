@@ -24,35 +24,22 @@ class RegistroModel {
 
     // Actualizamos la función insertRegistro para usar los campos correctos
     public function insertRegistro($nombre, $action, $fecha, $hora, $establecimiento_id) { 
-        // Depuración
-        var_dump($nombre, $action, $fecha, $hora, $establecimiento_id); // Agrega esta línea para verificar los datos
-    
-        $query = $this->db->prepare(
-            'INSERT INTO registros(nombre, action, fecha, hora, establecimiento_id) 
-             VALUES (?, ?, ?, ?, ?)');
+        $query = $this->db->prepare('INSERT INTO registros(nombre, action, fecha, hora, establecimiento_id) VALUES (?, ?, ?, ?, ?)');
         $query->execute([$nombre, $action, $fecha, $hora, $establecimiento_id]);
-    
-        // Retornar el ID del registro recién creado
         return $this->db->lastInsertId();
     }
     
  
-    public function eraseRegistro($id) {
+    public function borrarRegistro($id) {
         $query = $this->db->prepare('DELETE FROM registros WHERE id = ?');
         $query->execute([$id]);
     }
 
     public function updateRegistro($id, $nombre, $action, $fecha, $hora, $establecimiento_id) {
-    $query = $this->db->prepare('UPDATE registros SET nombre = ?, action = ?, fecha = ?, hora = ?, establecimiento_id = ? WHERE id = ?');
-    if ($query->execute([$nombre, $action, $fecha, $hora, $establecimiento_id, $id])) {
-        return true; // O cualquier otra lógica que necesites
-    } else {
-        // Manejo de errores
-        $errorInfo = $query->errorInfo();
-        echo "Error en la consulta: " . $errorInfo[2];
-        return false;
+        $query = $this->db->prepare('UPDATE registros SET nombre = ?, action = ?, fecha = ?, hora = ?, establecimiento_id = ? WHERE id = ?'); 
+        $query->execute([$nombre, $action, $fecha, $hora, $establecimiento_id, $id]);
+          
     }
-}
 
     public function getRegistrosByEstablecimientoId($id) {
         $query = $this->db->prepare('SELECT * FROM registros WHERE establecimiento_id = ?');
@@ -62,11 +49,8 @@ class RegistroModel {
 
     
     public function getRegistroById($id) {
-        // Prepara la consulta SQL
         $query = $this->db->prepare('SELECT * FROM registros WHERE id = ?');
         $query->execute([$id]);
-
-        // Retorna el registro si existe, o `false` si no se encuentra
         return $query->fetch(PDO::FETCH_OBJ);
     }
 }

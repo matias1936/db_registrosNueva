@@ -17,7 +17,7 @@
                         <p class="card-text">Ciudad: {$establecimiento->ciudad|escape}</p>
                         <div class="actions">
 
-                             <a href="formModificarEstablecimiento/{$establecimiento->id}" class="btn btn-success btn-sm">Modificar</a>
+                             <a href="formModificarEstablecimiento/{$establecimiento->id}" class="btn-editar">✏️</a>
 
                             <form action="verRegistro_establecimiento" method="POST" style="display:inline;">
                                 <input type="hidden" name="id" value="{$establecimiento->id}">

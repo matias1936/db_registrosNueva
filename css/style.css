@@ -11,7 +11,9 @@
     max-width: 100%;
     flex-wrap: wrap;
 }
-
+.btn-editar{
+    background-color: rgb(206, 33, 33);
+}
 .label {
     flex: 2;
     display: flex;
