@@ -1,6 +1,7 @@
 {include file='header.tpl'}
 {include file='form_alta_registro.tpl'}
 
+
 <div class="container mt-4">
     {include file='form_buscar_categoria.tpl'}
     <h2>Registro</h2>

@@ -22,18 +22,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" aria-current="page" href="{BASE_URL}listar">Registros</a>
+                            <a class="nav-link text-white" href="{$BASE_URL}listar">Registros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" aria-current="page" href="{BASE_URL}listar_establecimientos">Establecimientos</a>
+                            <a class="nav-link text-white" href="{$BASE_URL}listar_establecimientos">Establecimientos</a>
                         </li>
-                        {if $user}
+                        {if isset($user)}
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{$BASE_URL}logout">Salir</a>
                             </li>
                             <li class="nav-item">
                                 <span class="nav-link text-white">Bienvenido, {$user->usuario|escape}</span>
                             </li>
+                        
                         {/if}
                     </ul>
                 </div>

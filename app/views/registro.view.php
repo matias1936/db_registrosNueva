@@ -12,51 +12,45 @@ class RegistroView {
 
         // Configura las rutas de Smarty
         $this->smarty->setTemplateDir('templates/');
-        $this->smarty->setCompileDir('templates_c/'); // Asegúrate de tener este directorio con permisos de escritura.
+        $this->smarty->setCompileDir('templates_c/');
     }
 
     public function showRegistros($registros, $establecimientos) {
-        // Asigna las variables a Smarty
-        
+        $this->smarty->assign('user', $this->user);
         $this->smarty->assign('registros', $registros);
         $this->smarty->assign('establecimientos', $establecimientos);
-        // Verifica que $registros sea un array antes de contar
+        $this->smarty->assign('BASE_URL', BASE_URL);
         if (is_array($registros)) {
             $this->smarty->assign('count', count($registros));
-        } else {
-            $this->smarty->assign('count', 0); // O maneja el caso de otra manera
+        } 
+        else {
+            $this->smarty->assign('count', 0); 
         }
-        // Renderiza la plantilla `lista_registros.tpl`
         $this->smarty->display('lista_registros.tpl');
     }
 
     public function showModifyRegistroForm($registro,$establecimientos) {
-    // Asignar el registro a la plantilla
+        $this->smarty->assign('user', $this->user);
+        $this->smarty->assign('registro', $registro);
+        $this->smarty->assign('establecimientos', $establecimientos);
+        $this->smarty->assign('BASE_URL', BASE_URL);
+        $this->smarty->display('modify_registro_form.tpl');
 
-    $this->smarty->assign('registro', $registro);
-    $this->smarty->assign('establecimientos', $establecimientos);
-    $this->smarty->assign('BASE_URL', BASE_URL);
-    
-    // Mostrar la plantilla de modificación
-    $this->smarty->display('modify_registro_form.tpl');
-}
+    }
 
 
     public function showRegistrosByEstablecimiento($registros, $establecimiento, $establecimientos) {
-        // Asigna las variables a Smarty
         $this->smarty->assign('user', $this->user);
         $this->smarty->assign('registros', $registros);
         $this->smarty->assign('establecimiento', $establecimiento);
         $this->smarty->assign('establecimientos', $establecimientos);
-        
-        // Verifica que $registros sea un array antes de contar
+        $this->smarty->assign('BASE_URL', BASE_URL);
         if (is_array($registros)) {
             $this->smarty->assign('count', count($registros));
-        } else {
-            $this->smarty->assign('count', 0); // O maneja el caso de otra manera
+        } 
+        else {
+            $this->smarty->assign('count', 0);
         }
-        
-        // Renderiza la plantilla `lista_registros.tpl`
         $this->smarty->display('lista_registrosByEstablecimiento.tpl');
     }
 

@@ -10,7 +10,7 @@ class RegistroController {
 
     public function __construct($res) {
         $this->model = new RegistroModel();
-        $this->view = new RegistroView($res->user);
+        $this->view = new RegistroView($res->user); 
         $this->modelEstablecimiento= new EstablecimientoModel();
     }
 
@@ -26,8 +26,6 @@ class RegistroController {
             header('Location: ' . BASE_URL);
         }
     }
-
-
 
     
     public function showRegistros() {
@@ -79,22 +77,21 @@ class RegistroController {
 
     
     public function deleteRegistro($id) {
-        
-      
 
         if (!$id) {
             return $this->view->showError("No existe la registro con el id=$id");
         }
-
         $this->model->borrarRegistro($id);
-
         header('Location: ' . BASE_URL);
+
     }
 
     public function mostrarFormModificar($id) {
+
         $registro = $this->model->getRegistro($id);
         $establecimientos=$this->modelEstablecimiento->getEstablecimientos();
-        $this->view->showModifyRegistroForm($registro,$establecimientos); // Pasar el registro a modificar
+        $this->view->showModifyRegistroForm($registro,$establecimientos); 
+        
     }
 
     public function updateRegistro($id) {
@@ -106,16 +103,13 @@ class RegistroController {
             $establecimiento_id = $_POST['establecimiento_id'];
            
             $this->model->updateRegistro($id, $nombre, $action, $fecha, $hora,$establecimiento_id);
-    
             header('Location: ' . BASE_URL);
-        } else {
-            // Redirigir a la lista si no es una solicitud POST
+        } 
+        else {
             header('Location: ' . BASE_URL);
         }
     }
     
-
-
 
     public function buscarRegistros() {
         // Verifica si se ha enviado un establecimiento para filtrar
@@ -129,16 +123,12 @@ class RegistroController {
     
             // Obtener el objeto del establecimiento para más detalles
             $establecimiento = $this->modelEstablecimiento->getEstablecimientoById($establecimientoId);
-        } else {
+        } 
+        else {
             $registros = []; // Manejo si no hay establecimiento
             $establecimiento = null; // No hay establecimiento
         }
-    
-        // Llama a la vista para mostrar los registros y los establecimientos
         $this->view->showRegistrosByEstablecimiento($registros, $establecimiento,$establecimientos);
-    }
-
-    
-    
+    }  
 }
 

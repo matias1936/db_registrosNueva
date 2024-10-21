@@ -30,7 +30,7 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'listar':
-        sessionAuthMiddleware($res);//
+
         //verifica si existe una sesión activa con un usuario autenticado 
         $controller = new RegistroController($res);
         $controller->showRegistros();
@@ -44,41 +44,54 @@ switch ($params[0]) {
         $establecimientocontroller->showEstablecimientos(); 
         break;
     case 'cargar_establecimiento':
-        
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $establecimientocontroller = new EstablecimientoController($res);
         $establecimientocontroller->addEstablecimiento(); // Llama a la función para agregar el establecimiento
         break;
     case 'eliminar_establecimiento':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $establecimientocontroller = new EstablecimientoController($res);
         $establecimientocontroller->deleteEstablecimiento();
         break;
     case 'nueva':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new RegistroController($res);
         $controller->addRegistro();
         break;
     case 'eliminar':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
          // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
         $controller->deleteRegistro($params[1]);
         break;
     case 'modificar':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         //sessionAuthMiddleware($res);
         //verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new RegistroController($res);
         $controller->updateRegistro($params[1]);
         break;
     case 'formModificar':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new RegistroController($res);
         $controller->mostrarFormModificar($params[1]);
         break;
         
     case 'modificar_establecimiento':
-        //sessionAuthMiddleware($res);
-        //verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new EstablecimientoController($res);
         $controller->updateEstablecimiento($params[1]);
         break;
     case 'formModificarEstablecimiento':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new EstablecimientoController($res);
         $controller->mostrarFormModificarEstablecimiento($params[1]);
         break;

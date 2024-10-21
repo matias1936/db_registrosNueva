@@ -7,11 +7,7 @@ class RegistroModel {
        $this->db = new PDO('mysql:host=localhost;dbname=db_registros;charset=utf8', 'root', '');
     }
     public function getRegistros() {
-        $query = $this->db->prepare(
-            'SELECT r.*, e.nombre AS nombre_establecimiento
-             FROM registros r
-             LEFT JOIN establecimientos e ON r.establecimiento_id = e.id'
-        );
+        $query = $this->db->prepare('SELECT r.*, e.nombre AS nombre_establecimiento FROM registros r LEFT JOIN establecimientos e ON r.establecimiento_id = e.id');
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

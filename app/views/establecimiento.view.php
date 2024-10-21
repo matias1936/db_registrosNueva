@@ -4,32 +4,29 @@ use Smarty\Smarty;
 
 class EstablecimientoView {
     private $smarty;
+    private $user;
 
-    public function __construct($smarty) {
+    public function __construct($smarty, $user = null) {
         $this->smarty = new Smarty();
+        $this->user = $user; // Asigna el usuario
     }
 
     public function showEstablecimientos($establecimientos) {
-        // Assign variables to Smarty
         $this->smarty->assign('establecimientos', $establecimientos);
+        $this->smarty->assign('user', $this->user); // Asigna el usuario a Smarty
         $this->smarty->assign('count', count($establecimientos));
-        
-        // Render the template `lista_establecimientos.tpl`
         $this->smarty->display('lista_establecimientos.tpl');
     }
 
     public function showError($error) {
-        // Assign the error to Smarty and show the template `error.tpl`
         $this->smarty->assign('error', $error);
         $this->smarty->display('error.tpl');
     }
+
     public function showModifyEstablecimientoForm($establecimiento) {
-        // Asignar el registro a la plantilla
-    
         $this->smarty->assign('establecimiento', $establecimiento);
+        $this->smarty->assign('user', $this->user); // Asigna el usuario a Smarty
         $this->smarty->assign('BASE_URL', BASE_URL);
-        
-        // Mostrar la plantilla de modificación
         $this->smarty->display('modifyEstablecimiento_form.tpl');
     }
 }
